@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<script>
+
+    function computerPlay() {
+
+        const rps = ["Rock", "Paper", "Scissors"];
+
+        const computerRps = rps[Math.floor(Math.random() * rps.length)];
+        //console.log(computerRps);
+        return computerRps;
+    }
+
+    function playRound(playerSelection, computerSelection) {
+
+        var playerValue = playerSelection.toLowerCase();
+
+        var computerValue = computerSelection.toLowerCase();
+
+        //console.log(playerValue);
+        //console.log(computerValue);
+
+        var results;
+
+        if (playerValue === "rock" && computerValue === "scissors") {
+            results = "You win! Rock beats Scissors"
+        }
+        if (playerValue === "rock" && computerValue === "paper") {
+            results = "You lose! Paper loses Rock"
+        }
+        if (playerValue === "scissors" && computerValue === "rock") {
+            results = "You lose! Scissors loses to Rock"
+        }
+        if (playerValue === "scissors" && computerValue === "paper") {
+            results = "You win! Scissors beats Paper"
+        }
+        if (playerValue === "paper" && computerValue === "scissors") {
+            results = "You lose! Scissors beats Paper"
+        }
+        if (playerValue === "paper" && computerValue === "rock") {
+            results = "You win! Paper beats Rock"
+        }
+        if (playerValue === computerValue) {
+            results = "Its a draw! You both picked the same thing..."
+        }
+
+        return console.log(results);
+
+    }
+
+    function game() {
+        var i = 0;
+
+        while (i < 5) {
+            var compSeleciton = computerPlay();
+            var playerSelection = prompt('Enter your selection: Rock, Paper or Scissors');
+            playRound(playerSelection, compSeleciton);
+            i++;
+        }
+    }
+
+</script>
+
+</html>
