@@ -2,6 +2,9 @@
 <html>
 <script>
 
+    var playerWinCount = 0;
+    var computerWinCount = 0;
+
     function computerPlay() {
 
         const rps = ["Rock", "Paper", "Scissors"];
@@ -17,35 +20,65 @@
 
         var computerValue = computerSelection.toLowerCase();
 
-        //console.log(playerValue);
-        //console.log(computerValue);
-
         var results;
 
         if (playerValue === "rock" && computerValue === "scissors") {
-            results = "You win! Rock beats Scissors"
+            results = "You win! Rock beats Scissors";
+            playerWinCount++;
         }
         if (playerValue === "rock" && computerValue === "paper") {
-            results = "You lose! Paper loses Rock"
+            results = "You lose! Paper loses Rock";
+            computerWinCount++;  
         }
         if (playerValue === "scissors" && computerValue === "rock") {
-            results = "You lose! Scissors loses to Rock"
+            results = "You lose! Scissors loses to Rock";
+            computerWinCount++;
         }
         if (playerValue === "scissors" && computerValue === "paper") {
-            results = "You win! Scissors beats Paper"
+            results = "You win! Scissors beats Paper";
+            playerWinCount++;
         }
         if (playerValue === "paper" && computerValue === "scissors") {
-            results = "You lose! Scissors beats Paper"
+            results = "You lose! Scissors beats Paper";
+            computerWinCount++;
         }
         if (playerValue === "paper" && computerValue === "rock") {
-            results = "You win! Paper beats Rock"
+            results = "You win! Paper beats Rock";
+            playerWinCount++;
         }
         if (playerValue === computerValue) {
-            results = "Its a draw! You both picked the same thing..."
+            results = "Its a draw! You both picked the same thing...";
         }
 
-        return console.log(results);
 
+        const resultsDiv = document.querySelector('#results');
+        //return console.log(results);
+        resultsDiv.textContent = results;
+
+        const playerWinDiv = document.querySelector('#playerWins');
+        playerWinDiv.textContent = "Player Win Count: " + playerWinCount;
+
+        const computerWinDiv = document.querySelector('#computerWins');
+        computerWinDiv.textContent = "Computer Win Count: " + computerWinCount;
+
+        const gameOverDiv = document.querySelector('#celebrationText');
+        
+        if ( playerWinCount == 5 || computerWinCount == 5 )
+        {
+            if(playerWinCount > computerWinCount)
+            {
+                gameOverDiv.textContent = "CONGRATS !! YOU WON !"
+            }
+            else{
+                gameOverDiv.textContent = "GAME OVER !! YOU LOSE !"
+            }
+
+            playerWinCount = 0;
+            computerWinCount = 0;
+            
+
+        }
+       
     }
 
     function game() {
@@ -60,5 +93,44 @@
     }
 
 </script>
+
+<style>
+
+.wrapper{
+    text-align: center;
+    
+}
+
+button{
+    height: 200px;
+    width: 200px;
+    padding:7em;
+    margin-left: 1cm;
+   
+}
+
+.results{
+    margin-top: 5cm;
+}
+
+</style>
+
+<div class="wrapper">
+    <div><p>Make a selection!</p></div>
+    <button onclick="playRound('rock',computerPlay())">Rock</button>
+  
+    <button onclick="playRound('paper',computerPlay())">Paper</button>
+    
+    <button onclick="playRound('scissors',computerPlay())">Scissors</button>
+    
+    <div id="results"></div>
+
+    <div id="playerWins"></div>
+
+    <div id="computerWins"></div>
+
+    <div id="celebrationText"></div>
+</div>
+
 
 </html>
