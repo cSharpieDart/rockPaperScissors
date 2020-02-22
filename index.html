@@ -4,6 +4,7 @@
 
     var playerWinCount = 0;
     var computerWinCount = 0;
+    var results = "";
 
     function computerPlay() {
 
@@ -14,15 +15,28 @@
         return computerRps;
     }
 
-    // function restartGame(gameOverDiv){
-    //     playerWinCount = 0;
-    //     computerWinCount = 0;
+    function restartGame(gameOverDiv){
+        //console.log("i have been clicked");
+        playerWinCount = 0;
+        computerWinCount = 0;
 
-    //     gameOverDiv.textContent = "";
-    // }
+        gameOverDiv.textContent = "";
 
-    function makeGameOverAppear(){
-        
+        setScores();
+    }
+
+    function makeResetAppear(gameOverDiv) {
+        if (playerWinCount > computerWinCount) {
+            gameOverDiv.textContent = "CONGRATS !! YOU WON !"
+        }
+        else {
+            gameOverDiv.textContent = "GAME OVER !! YOU LOSE !"
+        }
+
+        var resetButton = document.createElement("button");
+        resetButton.innerHTML = "RESTART GAME";
+        document.getElementById("resetButtonDiv").appendChild(resetButton);
+        document.getElementById("resetButtonDiv").onclick = restartGame;
     }
 
     function playRound(playerSelection, computerSelection) {
@@ -31,7 +45,7 @@
 
         var computerValue = computerSelection.toLowerCase();
 
-        var results;
+        
 
         const gameOverDiv = document.querySelector('#celebrationText');
 
@@ -40,19 +54,10 @@
         var gameOverText = gameOverDiv.textContent;
 
         if ((playerWinCount == 5 || computerWinCount == 5) && gameOverText == "") {
-            if (playerWinCount > computerWinCount) {
-                gameOverDiv.textContent = "CONGRATS !! YOU WON !"
-            }
-            else {
-                gameOverDiv.textContent = "GAME OVER !! YOU LOSE !"
-            }
 
-            var resetButton = document.createElement("button");
-            resetButton.innerHTML = "RESTART GAME";
-            document.getElementById("resetButtonDiv").appendChild(resetButton);
-            //resetButton.addEventListener("click", restartGame(gameOverDiv));
+            makeResetAppear(gameOverDiv);
         }
-        else if (gameOverText == ""){
+        else if (gameOverText == "") {
             if (playerValue === "rock" && computerValue === "scissors") {
                 results = "You win! Rock beats Scissors";
                 playerWinCount++;
@@ -81,7 +86,20 @@
                 results = "Its a draw! You both picked the same thing...";
             }
 
-            const resultsDiv = document.querySelector('#results');
+            setScores(results);
+
+            if (playerWinCount == 5 || computerWinCount == 5 && gameOverText == "") {
+                makeResetAppear(gameOverDiv);
+            }
+
+        }
+
+
+    }
+
+    function setScores(results){
+        
+        const resultsDiv = document.querySelector('#results');
             resultsDiv.textContent = results;
 
             const playerWinDiv = document.querySelector('#playerWins');
@@ -89,14 +107,6 @@
 
             const computerWinDiv = document.querySelector('#computerWins');
             computerWinDiv.textContent = "Computer Win Count: " + computerWinCount;
-
-            if (playerWinCount == 5 || computerWinCount == 5)
-            {
-
-            }
-
-        }
-
 
     }
 
