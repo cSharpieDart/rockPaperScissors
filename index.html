@@ -15,12 +15,15 @@
         return computerRps;
     }
 
-    function restartGame(gameOverDiv){
+    function restartGame() {
         //console.log("i have been clicked");
         playerWinCount = 0;
         computerWinCount = 0;
 
-        gameOverDiv.textContent = "";
+        const gameOverDiv = document.querySelector('#celebrationText');
+        removeAllText(gameOverDiv);
+
+
 
         setScores();
     }
@@ -39,13 +42,41 @@
         document.getElementById("resetButtonDiv").onclick = restartGame;
     }
 
+    function removeAllText(element) {
+
+        // loop through all the nodes of the element
+        var nodes = element.childNodes;
+
+        for (var i = 0; i < nodes.length; i++) {
+
+            var node = nodes[i];
+
+            // if it's a text node, remove it
+            if (node.nodeType == Node.TEXT_NODE) {
+
+                node.parentNode.removeChild(node);
+
+
+                i--; // have to update our incrementor since we just removed a node from childNodes
+
+            } else
+
+                // if it's an element, repeat this process
+                if (node.nodeType == Node.ELEMENT_NODE) {
+
+                    removeAllText(node);
+
+                }
+        }
+    }
+
     function playRound(playerSelection, computerSelection) {
 
         var playerValue = playerSelection.toLowerCase();
 
         var computerValue = computerSelection.toLowerCase();
 
-        
+
 
         const gameOverDiv = document.querySelector('#celebrationText');
 
@@ -97,16 +128,16 @@
 
     }
 
-    function setScores(results){
-        
+    function setScores(results) {
+
         const resultsDiv = document.querySelector('#results');
-            resultsDiv.textContent = results;
+        resultsDiv.textContent = results;
 
-            const playerWinDiv = document.querySelector('#playerWins');
-            playerWinDiv.textContent = "Player Win Count: " + playerWinCount;
+        const playerWinDiv = document.querySelector('#playerWins');
+        playerWinDiv.textContent = "Player Win Count: " + playerWinCount;
 
-            const computerWinDiv = document.querySelector('#computerWins');
-            computerWinDiv.textContent = "Computer Win Count: " + computerWinCount;
+        const computerWinDiv = document.querySelector('#computerWins');
+        computerWinDiv.textContent = "Computer Win Count: " + computerWinCount;
 
     }
 
