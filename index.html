@@ -14,6 +14,17 @@
         return computerRps;
     }
 
+    // function restartGame(gameOverDiv){
+    //     playerWinCount = 0;
+    //     computerWinCount = 0;
+
+    //     gameOverDiv.textContent = "";
+    // }
+
+    function makeGameOverAppear(){
+        
+    }
+
     function playRound(playerSelection, computerSelection) {
 
         var playerValue = playerSelection.toLowerCase();
@@ -22,63 +33,71 @@
 
         var results;
 
-        if (playerValue === "rock" && computerValue === "scissors") {
-            results = "You win! Rock beats Scissors";
-            playerWinCount++;
-        }
-        if (playerValue === "rock" && computerValue === "paper") {
-            results = "You lose! Paper loses Rock";
-            computerWinCount++;  
-        }
-        if (playerValue === "scissors" && computerValue === "rock") {
-            results = "You lose! Scissors loses to Rock";
-            computerWinCount++;
-        }
-        if (playerValue === "scissors" && computerValue === "paper") {
-            results = "You win! Scissors beats Paper";
-            playerWinCount++;
-        }
-        if (playerValue === "paper" && computerValue === "scissors") {
-            results = "You lose! Scissors beats Paper";
-            computerWinCount++;
-        }
-        if (playerValue === "paper" && computerValue === "rock") {
-            results = "You win! Paper beats Rock";
-            playerWinCount++;
-        }
-        if (playerValue === computerValue) {
-            results = "Its a draw! You both picked the same thing...";
-        }
-
-
-        const resultsDiv = document.querySelector('#results');
-        //return console.log(results);
-        resultsDiv.textContent = results;
-
-        const playerWinDiv = document.querySelector('#playerWins');
-        playerWinDiv.textContent = "Player Win Count: " + playerWinCount;
-
-        const computerWinDiv = document.querySelector('#computerWins');
-        computerWinDiv.textContent = "Computer Win Count: " + computerWinCount;
-
         const gameOverDiv = document.querySelector('#celebrationText');
-        
-        if ( playerWinCount == 5 || computerWinCount == 5 )
-        {
-            if(playerWinCount > computerWinCount)
-            {
+
+        var resetButtonExists = document.getElementById("resetButtonDiv");
+
+        var gameOverText = gameOverDiv.textContent;
+
+        if ((playerWinCount == 5 || computerWinCount == 5) && gameOverText == "") {
+            if (playerWinCount > computerWinCount) {
                 gameOverDiv.textContent = "CONGRATS !! YOU WON !"
             }
-            else{
+            else {
                 gameOverDiv.textContent = "GAME OVER !! YOU LOSE !"
             }
 
-            playerWinCount = 0;
-            computerWinCount = 0;
-            
+            var resetButton = document.createElement("button");
+            resetButton.innerHTML = "RESTART GAME";
+            document.getElementById("resetButtonDiv").appendChild(resetButton);
+            //resetButton.addEventListener("click", restartGame(gameOverDiv));
+        }
+        else if (gameOverText == ""){
+            if (playerValue === "rock" && computerValue === "scissors") {
+                results = "You win! Rock beats Scissors";
+                playerWinCount++;
+            }
+            if (playerValue === "rock" && computerValue === "paper") {
+                results = "You lose! Paper loses Rock";
+                computerWinCount++;
+            }
+            if (playerValue === "scissors" && computerValue === "rock") {
+                results = "You lose! Scissors loses to Rock";
+                computerWinCount++;
+            }
+            if (playerValue === "scissors" && computerValue === "paper") {
+                results = "You win! Scissors beats Paper";
+                playerWinCount++;
+            }
+            if (playerValue === "paper" && computerValue === "scissors") {
+                results = "You lose! Scissors beats Paper";
+                computerWinCount++;
+            }
+            if (playerValue === "paper" && computerValue === "rock") {
+                results = "You win! Paper beats Rock";
+                playerWinCount++;
+            }
+            if (playerValue === computerValue) {
+                results = "Its a draw! You both picked the same thing...";
+            }
+
+            const resultsDiv = document.querySelector('#results');
+            resultsDiv.textContent = results;
+
+            const playerWinDiv = document.querySelector('#playerWins');
+            playerWinDiv.textContent = "Player Win Count: " + playerWinCount;
+
+            const computerWinDiv = document.querySelector('#computerWins');
+            computerWinDiv.textContent = "Computer Win Count: " + computerWinCount;
+
+            if (playerWinCount == 5 || computerWinCount == 5)
+            {
+
+            }
 
         }
-       
+
+
     }
 
     function game() {
@@ -95,41 +114,53 @@
 </script>
 
 <style>
+    .wrapper {
+        text-align: center;
 
-.wrapper{
-    text-align: center;
-    
-}
+    }
 
-button{
-    height: 200px;
-    width: 200px;
-    padding:7em;
-    margin-left: 1cm;
-   
-}
+    button {
+        width: 100px;
+        padding: 25px;
+        margin-left: 1cm;
+        color: white;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        background: rgb(66, 184, 221);
+        margin-bottom: 1cm;
+    }
 
-.results{
-    margin-top: 5cm;
-}
+    button:hover {
+        background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+        background-color: #378de5;
+    }
 
+    .results {
+        margin-top: 5cm;
+    }
 </style>
 
 <div class="wrapper">
-    <div><p>Make a selection!</p></div>
+    <div>
+        <p>Scissors, Paper, Rock - Make a selection!</p>
+    </div>
     <button onclick="playRound('rock',computerPlay())">Rock</button>
-  
-    <button onclick="playRound('paper',computerPlay())">Paper</button>
-    
-    <button onclick="playRound('scissors',computerPlay())">Scissors</button>
-    
-    <div id="results"></div>
 
+    <button onclick="playRound('paper',computerPlay())">Paper</button>
+
+    <button onclick="playRound('scissors',computerPlay())">Scissors</button>
+
+    <div id="results"></div>
+    <br>
     <div id="playerWins"></div>
 
     <div id="computerWins"></div>
+    <br>
+    <br>
 
     <div id="celebrationText"></div>
+    <br>
+    <div id="resetButtonDiv"></div>
 </div>
 
 
