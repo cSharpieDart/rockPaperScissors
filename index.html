@@ -23,7 +23,9 @@
         const gameOverDiv = document.querySelector('#celebrationText');
         removeAllText(gameOverDiv);
 
-
+        var element = document.getElementById('resetButtonDiv');
+        element.innerHTML = '';
+        //element.children.removeChild(resetButton);
 
         setScores();
     }
